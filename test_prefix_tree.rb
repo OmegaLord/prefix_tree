@@ -6,11 +6,9 @@ require './prefix_tree'
 
 # Class TestPrefixTree
 class TestPrefixTree < Minitest::Test
-  def setup
-    @val = 1
-  end
+  def setup; end
 
-  def test_phase
-    assert_equal func, @val
+  def test_new_tree
+    assert Tree.new
   end
 end

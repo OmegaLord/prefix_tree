@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
-def func
-  1
+require './prefix_tree_spec'
+
+# class Tree
+class Tree
+  def initialize
+    @root = Node.new('')
+  end
 end
