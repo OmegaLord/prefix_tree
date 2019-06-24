@@ -11,4 +11,8 @@ class TestPrefixTree < Minitest::Test
   def test_new_tree
     assert Tree.new
   end
+
+  def test_add_function
+    # Code for test
+  end
 end
