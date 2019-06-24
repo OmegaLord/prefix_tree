@@ -9,14 +9,15 @@ class Tree
   end
 
   def add(text)
-    text = text.join
-    exp = Regexp.union [/[[:punct:]]/, /[[:blank:]]/]
-    words = text.split exp
+    words = text.join.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
     words.each do |word|
       root = @root
       word.chars.each { |ch| root = add_char(ch, root.next) }
       root.complete = true
     end
+    return 'Data save successful' unless @root.next.nil?
+
+    'Error! Data not save.'
   end
 
   private
