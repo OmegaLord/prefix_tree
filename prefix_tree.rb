@@ -13,10 +13,13 @@ class Tree
     node = @root
     words = text.join.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
     words.each do |word|
-      word.chars.each { |c| return false unless node = add_char(c, node) }
+      word.chars.each do |c|
+        node = add_char(c, node)
+        return false if node.nil?
+      end
       node.complete = true
     end
-    return true
+    true
   end
 
   private

@@ -8,7 +8,7 @@ require './prefix_tree'
 class TestPrefixTree < Minitest::Test
   def setup
     @tree = Tree.new
-    @str = "Lorem"
+    @str = 'Lorem'
   end
 
   def test_new_tree
@@ -17,7 +17,7 @@ class TestPrefixTree < Minitest::Test
 
   def test_add_function
     assert @tree.add(@str.split)
-    pointer_node =  @tree.root.elements
+    pointer_node = @tree.root.elements
     @str.each_char do |c|
       pointer_node = try_find_node_with_char(pointer_node, c)
       assert_equal c, pointer_node.character
