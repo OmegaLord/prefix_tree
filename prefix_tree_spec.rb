@@ -2,12 +2,12 @@
 
 # class Node
 class Node
-  attr_reader :character, :next
+  attr_reader :character, :elements
   attr_accessor :complete
 
   def initialize(character)
     @character = character
     @complete = false
-    @next = []
+    @elements = []
   end
 end
