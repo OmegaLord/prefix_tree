@@ -4,31 +4,30 @@ require './prefix_tree_spec'
 
 # class Tree
 class Tree
+  attr_reader :root
   def initialize
     @root = Node.new('')
   end
 
   def add(text)
+    node = @root
     words = text.join.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
     words.each do |word|
-      root = @root
-      word.chars.each { |ch| root = add_char(ch, root.next) }
-      root.complete = true
+      word.chars.each { |c| return false unless node = add_char(c, node) }
+      node.complete = true
     end
-    return 'Data save successful' unless @root.next.nil?
-
-    'Error! Data not save.'
+    return true
   end
 
   private
 
-  def add_char(symbol, root)
-    root.find { |n| n.character == symbol } || new_node(symbol, root)
+  def add_char(char, node)
+    node.elements.find { |n| n.character == char } || new_node(char, node)
   end
 
-  def new_node(symbol, root)
-    Node.new(symbol).tap do |new_node|
-      root << new_node
+  def new_node(char, node)
+    Node.new(char).tap do |new_node|
+      node.elements << new_node
     end
   end
 end

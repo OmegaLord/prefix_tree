@@ -8,10 +8,7 @@ require './prefix_tree'
 class TestPrefixTree < Minitest::Test
   def setup
     @tree = Tree.new
-    @str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-  	sed do eiusmod tempor incididunt ut
-  	labore et dolore magna aliqua. Ut enim ad minim veniam,
-  	quis nostrud exercitation ullamco laboris nisi ut aliquip "
+    @str = "Lorem"
   end
 
   def test_new_tree
@@ -19,6 +16,20 @@ class TestPrefixTree < Minitest::Test
   end
 
   def test_add_function
-    assert_equal 'Data save successful', @tree.add(@str.split)
+    assert @tree.add(@str.split)
+    pointer_node =  @tree.root.elements
+    @str.each_char do |c|
+      pointer_node = try_find_node_with_char(pointer_node, c)
+      assert_equal c, pointer_node.character
+      pointer_node = get_deep_node(pointer_node)
+    end
+  end
+
+  def get_deep_node(node)
+    node.elements
+  end
+
+  def try_find_node_with_char(node, char)
+    node.find { |n| n.character == char }
   end
 end
