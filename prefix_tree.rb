@@ -26,7 +26,12 @@ class Tree
   end
 
   def include?(word)
-    find_word(word)
+    node = @root
+    letter_arr = word.chars
+    word_found = letter_arr.all? do |letter|
+      node = find_char(letter, node.child_arr)
+    end
+    word_found && node.completed_word
   end
 
   private
@@ -45,14 +50,5 @@ class Tree
 
   def find_char(char, node)
     node.find { |n| n.character == char }
-  end
-
-  def find_word(word)
-    node = @root
-    letter_arr = word.chars
-    word_found = letter_arr.all? do |letter|
-      node = find_char(letter, node.child_arr)
-    end
-    word_found && node.completed_word
   end
 end

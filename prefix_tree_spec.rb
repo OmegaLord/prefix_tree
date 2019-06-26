@@ -22,6 +22,7 @@ class TestPrefixTree < Minitest::Test
     find_each_char_in_tree(@str, @tree)
   end
 
+  # function find_each_char_in_tree seach each string char in tree
   def find_each_char_in_tree(string, tree)
     pointer_node = tree.root.child_arr
     string.each_char do |c|
