@@ -25,6 +25,7 @@ class Tree
     true
   end
 
+  # function include? check word contain in tree
   def include?(word)
     node = @root
     letter_arr = word.chars
@@ -47,7 +48,7 @@ class Tree
       node.child_arr << new_node
     end
   end
-
+  # function find_char search char in node
   def find_char(char, node)
     node.find { |n| n.character == char }
   end
