@@ -48,6 +48,7 @@ class Tree
       node.child_arr << new_node
     end
   end
+
   # function find_char search char in node
   def find_char(char, node)
     node.find { |n| n.character == char }
