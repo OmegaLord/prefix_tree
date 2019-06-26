@@ -25,15 +25,6 @@ class Tree
     true
   end
 
-  def include?(word)
-    node = @root
-    letter_arr = word.chars
-    word_found = letter_arr.all? do |letter|
-      node = find_char(letter, node.child_arr)
-    end
-    word_found && node.completed_word
-  end
-
   private
 
   # function add_char finds node with char or call function new_node
@@ -46,9 +37,5 @@ class Tree
     Node.new(char).tap do |new_node|
       node.child_arr << new_node
     end
-  end
-
-  def find_char(char, node)
-    node.find { |n| n.character == char }
   end
 end
