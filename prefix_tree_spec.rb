@@ -21,22 +21,30 @@ class TestPrefixTree < Minitest::Test
     find_each_char_in_tree(@str, @tree)
   end
 
+  # test_list_function to check tree word list 
+  def test_list_function
+    assert @tree.list
+    @tree.list.each { |element| assert_equal str, element }
+
+  end
+
   # function find_each_char_in_tree search each string char in tree
   def find_each_char_in_tree(string, tree)
     pointer_node = tree.root.child_arr
     string.each_char do |c|
     assert @tree.add(@str.split)
-    pointer_node = @tree.root.elements
+    pointer_node = @tree.root.child_arr
     @str.each_char do |c|
       pointer_node = try_find_node_with_char(pointer_node, c)
       assert_equal c, pointer_node.character
       pointer_node = get_deep_node(pointer_node)
     end
   end
+end
 
   # function get_deep_node gets node which are located deer in tree
   def get_deep_node(node)
-    node.elements
+    node.child_arr
   end
 
   # function try_find_node_with_char found char in node

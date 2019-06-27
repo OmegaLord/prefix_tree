@@ -9,6 +9,7 @@ class Tree
 
   def initialize
     @root = Node.new('')
+    @str_arr = []
   end
 
   # function add append words into tree
@@ -35,6 +36,13 @@ class Tree
     word_found && node.completed_word
   end
 
+
+  def list
+    root = @root
+    assemble_word(root.child_arr)
+    @list.each { |item| puts item }
+  end
+
   private
 
   # function add_char finds node with char or call function new_node
@@ -53,4 +61,23 @@ class Tree
   def find_char(char, node)
     node.find { |n| n.character == char }
   end
+
+  def assemble_word(tree)
+    tree.each do |branch|
+      unless branch.next.nil?
+        show_sym(branch.character, branch.complete)
+        assemble_word(branch.next)
+      end
+    end
+    @str.pop
+  end
+
+  def show_sym(sym, word)
+    if word
+      @str.push sym
+      @list << @str.join
+    end
+    @str.push sym
+  end
+
 end
