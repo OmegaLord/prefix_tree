@@ -9,7 +9,6 @@ class TestPrefixTree < Minitest::Test
   def setup
     @tree = Tree.new
     @str = 'Lorem'
-    @tree.add(@str.split)
   end
 
   # test_new_tree for test creation new class Tree object
@@ -26,6 +25,9 @@ class TestPrefixTree < Minitest::Test
   def find_each_char_in_tree(string, tree)
     pointer_node = tree.root.child_arr
     string.each_char do |c|
+    assert @tree.add(@str.split)
+    pointer_node = @tree.root.elements
+    @str.each_char do |c|
       pointer_node = try_find_node_with_char(pointer_node, c)
       assert_equal c, pointer_node.character
       pointer_node = get_deep_node(pointer_node)
@@ -34,17 +36,11 @@ class TestPrefixTree < Minitest::Test
 
   # function get_deep_node gets node which are located deer in tree
   def get_deep_node(node)
-    node.child_arr
+    node.elements
   end
 
   # function try_find_node_with_char found char in node
   def try_find_node_with_char(node, char)
     node.find { |n| n.character == char }
-  end
-
-  # test_include_function for check word in tree
-  def test_include_function
-    assert @tree.include?(@str)
-    find_each_char_in_tree(@str, @tree)
   end
 end

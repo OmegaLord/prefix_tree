@@ -24,7 +24,7 @@ class Tree
     end
     true
   end
-
+  
   # function include? check word contain in tree
   def include?(word)
     node = @root
