@@ -18,6 +18,13 @@ class TestPrefixTree < Minitest::Test
 
   # test_add_function for check add words
   def test_add_function
+    find_each_char_in_tree(@str, @tree)
+  end
+
+  # function find_each_char_in_tree search each string char in tree
+  def find_each_char_in_tree(string, tree)
+    pointer_node = tree.root.child_arr
+    string.each_char do |c|
     assert @tree.add(@str.split)
     pointer_node = @tree.root.elements
     @str.each_char do |c|
