@@ -9,6 +9,7 @@ class TestPrefixTree < Minitest::Test
   def setup
     @tree = Tree.new
     @str = 'Lorem'
+    @tree.add(@str.split)
   end
 
   # test_new_tree for test creation new class Tree object
@@ -23,9 +24,7 @@ class TestPrefixTree < Minitest::Test
 
   # test_list_function to check tree word list 
   def test_list_function
-    assert @tree.list
-    @tree.list.each { |element| assert_equal str, element }
-
+    @tree.list.each { |word| assert_equal @str, word }
   end
 
   # function find_each_char_in_tree search each string char in tree

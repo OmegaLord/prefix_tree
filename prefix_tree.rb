@@ -5,11 +5,12 @@ require './node'
 # class Tree realizes prefix tree struture
 class Tree
   # reference for root node
-  attr_reader :root
+  attr_reader :root, :list
 
   def initialize
     @root = Node.new('')
-    @str_arr = []
+    @str = []
+    @list = []
   end
 
   # function add append words into tree
@@ -39,8 +40,8 @@ class Tree
 
   def list
     root = @root
-    assemble_word(root.child_arr)
-    @list.each { |item| puts item }
+    assemble_words(root.child_arr) if @list.length.zero?
+    @list
   end
 
   private
@@ -62,22 +63,19 @@ class Tree
     node.find { |n| n.character == char }
   end
 
-  def assemble_word(tree)
-    tree.each do |branch|
-      unless branch.next.nil?
-        show_sym(branch.character, branch.complete)
-        assemble_word(branch.next)
+  def assemble_words(tree)
+    tree.each do |node|
+      unless node.child_arr.nil?
+        push_char_to_list(node.character, node.completed_word)
+        assemble_words(node.child_arr)
       end
     end
     @str.pop
   end
 
-  def show_sym(sym, word)
-    if word
-      @str.push sym
-      @list << @str.join
-    end
-    @str.push sym
+  def push_char_to_list(char, word)
+    @str.push char
+    @list << @str.join if word
   end
 
 end
