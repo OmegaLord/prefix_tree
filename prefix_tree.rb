@@ -5,7 +5,7 @@ require './node'
 # class Tree realizes prefix tree struture
 class Tree
   # reference for root node
-  attr_reader :root, :words
+  attr_reader :root
 
   def initialize
     @root = Node.new('')
