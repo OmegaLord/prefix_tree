@@ -9,7 +9,7 @@ class Tree
 
   def initialize
     @root = Node.new('')
-    @str = []
+    @letters_of_word = []
     @words = []
   end
 
@@ -39,6 +39,8 @@ class Tree
   # function list collect all words in tree
   def list
     root = @root
+    @letters_of_word.clear
+    @words.clear
     assemble_words(root.child_nodes) if @words.length.zero?
     @words
   end
@@ -70,11 +72,11 @@ class Tree
       end
     end
     # deletes each letter when returning from the stack to the previous level
-    @str.pop
+    @letters_of_word.pop
   end
 
   def push_char_to_list(char, word)
-    @str.push char
-    @words << @str.join if word
+    @letters_of_word << char
+    @words << @letters_of_word.join if word
   end
 end
