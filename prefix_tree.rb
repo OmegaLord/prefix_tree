@@ -13,16 +13,15 @@ class Tree
 
   # function add append words into tree
   def add(text)
-    node = @root
-    words = text.join.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
+    words = text.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
     words.each do |word|
+      node = @root
       word.chars.each do |c|
         node = find_or_create_node(c, node)
         return false if node.nil?
       end
       node.completed = true
     end
-    true
   end
 
   # function include? check word contain in tree
@@ -30,7 +29,7 @@ class Tree
     node = @root
     letters = word.chars
     word_found = letters.all? do |letter|
-      node = find_char(letter, node)
+      node = find_node(letter, node)
     end
     word_found && node.completed
   end
