@@ -41,7 +41,7 @@ class Tree
     root = @root
     @letters_of_word.clear
     @words.clear
-    assemble_words(root.child_nodes) if @words.length.zero?
+    assemble_words(root.child_nodes)
     @words
   end
 
