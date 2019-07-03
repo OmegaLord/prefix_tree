@@ -4,6 +4,9 @@ require 'minitest'
 require 'minitest/autorun'
 require './prefix_tree'
 
+DIR = 'data'
+FILE = 'words'
+
 # Class TestPrefixTree tests function of class Tree
 class TestPrefixTree < Minitest::Test
   def setup
@@ -31,6 +34,24 @@ class TestPrefixTree < Minitest::Test
   #                                                    @list variable
   def test_list_function
     strings_block_assert(@str) { |param| @tree.list.include?(param) }
+  end
+
+  # test_save_to_file to check function and creation file
+  def test_save_to_file
+    assert @tree.save_to_file
+    assert Dir.exist?(DIR)
+    assert File.exist?("#{DIR}/#{FILE}")
+    check_file_for_tree_words("#{DIR}/#{FILE}", @tree)
+  end
+
+  # test_save_to_file to check function and load from file information
+  def test_load_from_file
+    assert Dir.exist?(DIR)
+    assert File.exist?("#{DIR}/#{FILE}")
+    assert @tree.load_from_file
+    check_file_for_tree_words("#{DIR}/#{FILE}", @tree)
+    File.delete("#{DIR}/#{FILE}")
+    Dir.delete(DIR)
   end
 
   # function find_each_char_in_tree search each string char in tree
@@ -63,5 +84,12 @@ class TestPrefixTree < Minitest::Test
 
   def strings_block_assert(str)
     get_strings(str).each { |s| assert yield(s) }
+  end
+
+  def check_file_for_tree_words(path, tree)
+    File.open(path) do |review_file|
+      review_file.readlines.each(&:chomp!)
+      find_each_char_in_tree(review_file.readlines.each(&:chomp!), tree)
+    end
   end
 end

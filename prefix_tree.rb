@@ -46,6 +46,19 @@ class Tree
     words
   end
 
+  def save_to_file(path = 'data/words')
+    list
+
+    Dir.mkdir('data') unless Dir.exist?('data')
+    File.open(path, 'a') { |file| words.each { |word| file.puts word } }
+  end
+
+  def load_from_file(path = 'data/words')
+    words.clear
+    File.open(path) { |review_file| words << review_file.readlines(&:chomp!) }
+    add(words.to_s)
+  end
+
   private
 
   # function add_char finds node with char or call function new_node
