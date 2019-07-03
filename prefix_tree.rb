@@ -5,7 +5,7 @@ require './node'
 # class Tree realizes prefix tree struture
 class Tree
   # reference for root node
-  attr_reader :root
+  attr_accessor :letters_of_word, :words, :root
 
   def initialize
     @root = Node.new('')
@@ -15,10 +15,10 @@ class Tree
 
   # function add append words into tree
   def add(text)
-    words = text.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
-                .reject! { |str| str.empty? }
-    words.each do |word|
-      node = @root
+    words_in_text = text.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
+                        .reject! { |str| str.empty? }
+    words_in_text.each do |word|
+      node = root
       word.chars.each do |c|
         node = find_or_create_node(c, node)
         return false if node.nil?
@@ -29,7 +29,7 @@ class Tree
 
   # function include? check word contain in tree
   def include?(word)
-    node = @root
+    node = root
     letters = word.chars
     word_found = letters.all? do |letter|
       node = find_node(letter, node)
@@ -39,11 +39,11 @@ class Tree
 
   # function list collect all words in tree
   def list
-    root = @root
-    @letters_of_word.clear
-    @words.clear
-    assemble_words(root.child_nodes)
-    @words
+    root_node = root
+    letters_of_word.clear
+    words.clear
+    assemble_words(root_node.child_nodes)
+    words
   end
 
   private
@@ -73,11 +73,11 @@ class Tree
       end
     end
     # deletes each letter when returning from the stack to the previous level
-    @letters_of_word.pop
+    letters_of_word.pop
   end
 
   def push_char_to_list(char, word)
-    @letters_of_word << char
-    @words << @letters_of_word.join if word
+    letters_of_word << char
+    words << @letters_of_word.join if word
   end
 end

@@ -8,7 +8,7 @@ require './prefix_tree'
 class TestPrefixTree < Minitest::Test
   def setup
     @tree = Tree.new
-    @str = 'Lorem ipsum'
+    @str = 'foo, bar. baz'
     @tree.add(@str)
   end
 
@@ -58,6 +58,7 @@ class TestPrefixTree < Minitest::Test
 
   def get_strings(string)
     string.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
+          .reject! { |str| str.empty? }
   end
 
   def strings_block_assert(str)
