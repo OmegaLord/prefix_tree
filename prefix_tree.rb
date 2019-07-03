@@ -16,7 +16,7 @@ class Tree
   # function add append words into tree
   def add(text)
     words_in_text = text.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
-                        .reject! { |str| str.empty? }
+                        .reject!(&:empty?)
     words_in_text.each do |word|
       node = root
       word.chars.each do |c|

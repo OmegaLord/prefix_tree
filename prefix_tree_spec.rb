@@ -58,7 +58,7 @@ class TestPrefixTree < Minitest::Test
 
   def get_strings(string)
     string.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
-          .reject! { |str| str.empty? }
+          .reject!(&:empty?)
   end
 
   def strings_block_assert(str)
