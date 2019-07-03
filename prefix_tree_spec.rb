@@ -8,7 +8,7 @@ require './prefix_tree'
 class TestPrefixTree < Minitest::Test
   def setup
     @tree = Tree.new
-    @str = 'Lorem ipsum'
+    @str = 'foo, bar. baz'
     @tree.add(@str)
   end
 
@@ -22,8 +22,15 @@ class TestPrefixTree < Minitest::Test
     find_each_char_in_tree(get_strings(@str), @tree)
   end
 
+  # test_include_function for check include? method in Class Tree
   def test_include_function
-    get_strings(@str).each { |s| assert @tree.include?(s) } 
+    strings_block_assert(@str) { |param| @tree.include?(param) }
+  end
+
+  # test_list_function to check tree word list via check each word in
+  #                                                    @list variable
+  def test_list_function
+    strings_block_assert(@str) { |param| @tree.list.include?(param) }
   end
 
   # function find_each_char_in_tree search each string char in tree
@@ -51,5 +58,10 @@ class TestPrefixTree < Minitest::Test
 
   def get_strings(string)
     string.split(Regexp.union([/[[:punct:]]/, /[[:blank:]]/]))
+          .reject!(&:empty?)
+  end
+
+  def strings_block_assert(str)
+    get_strings(str).each { |s| assert yield(s) }
   end
 end
