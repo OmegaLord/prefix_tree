@@ -5,7 +5,7 @@ class Node
   attr_reader :character, :child_nodes
   attr_accessor :completed
 
-  def initialize(character)
+  def initialize(character = '')
     @character = character
     @completed = false
     @child_nodes = []

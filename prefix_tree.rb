@@ -8,7 +8,7 @@ class Tree
   attr_accessor :letters_of_word, :words, :root
 
   def initialize
-    @root = Node.new('')
+    @root = Node.new
     @letters_of_word = []
     @words = []
   end
